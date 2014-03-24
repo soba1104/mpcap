@@ -18,10 +18,10 @@ class ethernet::packet : public interface::packet {
     ~packet(void) {}
 
     template<typename NEXT> bool apply(const void *data, int32_t size);
-    inline int32_t size(void) const { return m_size; }
-    inline const void *ptr(void) const { return m_ehdr; }
-    inline int32_t datasize(void) const { return m_datasize; }
-    inline const void *dataptr(void) const { return m_dataptr; }
+    inline virtual int32_t size(void) const final override { return m_size; }
+    inline virtual const void *ptr(void) const final override { return m_ehdr; }
+    inline virtual int32_t datasize(void) const final override { return m_datasize; }
+    inline virtual const void *dataptr(void) const final override { return m_dataptr; }
 
     inline address src(void) const {
       return address(static_cast<uint64_t>(m_ehdr->ether_shost[0]) << 0x28UL
@@ -40,7 +40,7 @@ class ethernet::packet : public interface::packet {
                    | static_cast<uint64_t>(m_ehdr->ether_dhost[5]) << 0x00UL);
     }
 
-    bool apply(const void *data, int32_t size) {
+    inline virtual bool apply(const void *data, int32_t size) final override {
       m_ehdr = static_cast<const struct ether_header*>(data);
       m_size = size;
       m_dataptr = static_cast<const void*>(m_ehdr + 1);

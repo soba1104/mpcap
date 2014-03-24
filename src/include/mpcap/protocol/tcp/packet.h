@@ -19,10 +19,10 @@ class tcp::packet : public interface::packet {
     ~packet(void) {}
 
     template<typename NEXT> bool apply(const void *data, int32_t size);
-    inline int32_t size(void) const { return m_size; }
-    inline const void *ptr(void) const { return m_thdr; }
-    inline int32_t datasize(void) const { return m_datasize; }
-    inline const void *dataptr(void) const { return m_dataptr; }
+    inline virtual int32_t size(void) const final override { return m_size; }
+    inline virtual const void *ptr(void) const final override { return m_thdr; }
+    inline virtual int32_t datasize(void) const final override { return m_datasize; }
+    inline virtual const void *dataptr(void) const final override { return m_dataptr; }
 
     inline uint16_t srcport(void) const { return m_thdr->source; }
     inline uint16_t dstport(void) const { return m_thdr->dest; }
@@ -41,7 +41,7 @@ class tcp::packet : public interface::packet {
     inline address src(void) const { return address(srcport()); }
     inline address dst(void) const { return address(dstport()); }
 
-    bool apply(const void *data, int32_t size) {
+    inline virtual bool apply(const void *data, int32_t size) final override {
       m_thdr = static_cast<const struct tcphdr*>(data);
       m_size = size;
       const uint8_t *__data = static_cast<const uint8_t*>(data);
