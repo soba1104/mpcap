@@ -41,8 +41,8 @@ class stack<HEAD, NEXT, REST...> {
           return m_head;
         }
 
-        address src(void) { return address(m_head.src(), m_rest.src()); }
-        address dst(void) { return address(m_head.dst(), m_rest.dst()); }
+        address src(void) const { return address(m_head.src(), m_rest.src()); }
+        address dst(void) const { return address(m_head.dst(), m_rest.dst()); }
 
         bool apply(const void *data, uint32_t size) {
           if (!m_head.template apply<NEXT>(data, size)) { return false; }
@@ -84,8 +84,8 @@ class stack<HEAD> {
           return m_head;
         }
 
-        address src(void) { return address(m_head.src(), meta::list<>()); }
-        address dst(void) { return address(m_head.dst(), meta::list<>()); }
+        address src(void) const { return address(m_head.src(), meta::list<>()); }
+        address dst(void) const { return address(m_head.dst(), meta::list<>()); }
 
         bool apply(const void *data, uint32_t size) {
           return m_head.template apply(data, size);
