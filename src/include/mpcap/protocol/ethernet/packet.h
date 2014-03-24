@@ -14,16 +14,16 @@ namespace protocol {
 
 class ethernet::packet : public interface::packet {
   public:
-    packet() {}
-    ~packet() {}
+    packet(void) {}
+    ~packet(void) {}
 
     template<typename NEXT> bool apply(const void *data, int32_t size);
-    inline int32_t size() const { return m_size; }
-    inline const void *ptr() const { return m_ehdr; }
-    inline int32_t datasize() const { return m_datasize; }
-    inline const void *dataptr() const { return m_dataptr; }
+    inline int32_t size(void) const { return m_size; }
+    inline const void *ptr(void) const { return m_ehdr; }
+    inline int32_t datasize(void) const { return m_datasize; }
+    inline const void *dataptr(void) const { return m_dataptr; }
 
-    inline address src() const {
+    inline address src(void) const {
       return address(static_cast<uint64_t>(m_ehdr->ether_shost[0]) << 0x28UL
                    | static_cast<uint64_t>(m_ehdr->ether_shost[1]) << 0x20UL
                    | static_cast<uint64_t>(m_ehdr->ether_shost[2]) << 0x18UL
@@ -31,7 +31,7 @@ class ethernet::packet : public interface::packet {
                    | static_cast<uint64_t>(m_ehdr->ether_shost[4]) << 0x08UL
                    | static_cast<uint64_t>(m_ehdr->ether_shost[5]) << 0x00UL);
     }
-    inline address dst() const {
+    inline address dst(void) const {
       return address(static_cast<uint64_t>(m_ehdr->ether_dhost[0]) << 0x28UL
                    | static_cast<uint64_t>(m_ehdr->ether_dhost[1]) << 0x20UL
                    | static_cast<uint64_t>(m_ehdr->ether_dhost[2]) << 0x18UL
