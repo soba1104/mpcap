@@ -4,7 +4,7 @@ SET(CMAKE_CXX_FLAGS "-std=c++0x -g")
 SET(CMAKE_CXX_FLAGS_DEBUG -DMPCAP_DEBUG)
 
 SET(MPCAP_SOURCES
-    packet/reader.cc
+    pcap/reader.cc
     protocol/ethernet/address.cc
     protocol/ipv4/address.cc
     protocol/tcp/address.cc

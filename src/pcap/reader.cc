@@ -1,11 +1,11 @@
 #include <sstream>
 #include <pcap.h>
 
-#include <mpcap/packet/reader.h>
+#include <mpcap/pcap/reader.h>
 
 namespace mpcap {
 
-namespace packet {
+namespace pcap {
 
 class reader::impl {
   public:
@@ -102,7 +102,7 @@ void reader::impl::close(void) {
 
 int32_t reader::impl::read(const void **res_data, struct ::timeval *res_time) {
   if (!m_pcap) {
-    throw reader::exception("packet::reader is not opened.");
+    throw reader::exception("pcap::reader is not opened.");
   }
   
   struct pcap_pkthdr *hdr;
@@ -141,6 +141,6 @@ int32_t reader::read(const void **res_data, struct ::timeval *res_time) {
   return m_impl->read(res_data, res_time);
 }
 
-} // namespace packet
+} // namespace pcap
 
 } // namespace mpcap

@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_MPCAP_PACKET_READER_H_
-#define SRC_INCLUDE_MPCAP_PACKET_READER_H_
+#ifndef SRC_INCLUDE_MPCAP_PCAP_READER_H_
+#define SRC_INCLUDE_MPCAP_PCAP_READER_H_
 
 #include <string>
 #include <stdexcept>
@@ -9,7 +9,7 @@
 
 namespace mpcap {
 
-namespace packet {
+namespace pcap {
 
 class reader {
   public:
@@ -33,8 +33,8 @@ class reader::exception : public std::runtime_error {
             : std::runtime_error(message) {}
 };
 
-} // namespace packet
+} // namespace pcap
 
 } // namespace mpcap
 
-#endif  // SRC_INCLUDE_MPCAP_PACKET_READER_H_
+#endif  // SRC_INCLUDE_MPCAP_PCAP_READER_H_
