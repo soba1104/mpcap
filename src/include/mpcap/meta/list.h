@@ -49,12 +49,12 @@ class list<CAR, CDR> {
     }
 
     template <int I>
-    typename index<I>::type at(typename std::enable_if<I != 0>::type* = 0) const {
+    const typename index<I>::type &at(typename std::enable_if<I != 0>::type* = 0) const {
       return m_cdr.at<I - 1>();
     }
 
     template <int I>
-    CAR at(typename std::enable_if<I == 0>::type* = 0) const {
+    const CAR &at(typename std::enable_if<I == 0>::type* = 0) const {
       return m_car;
     }
 
@@ -84,7 +84,7 @@ class list<> {
       typedef void type;
     };
 
-    template <int I> void at(void) {}
+    template <int I> void at(void) const {}
 
     bool operator==(const list<> &rhs) const {
       return true;
