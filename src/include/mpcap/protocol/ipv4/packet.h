@@ -14,20 +14,20 @@ namespace protocol {
 
 class ipv4::packet : public interface::packet {
   public:
-    packet() {}
-    ~packet() {}
+    packet(void) {}
+    ~packet(void) {}
 
     template<typename NEXT> bool apply(const void *data, int32_t size);
-    inline int32_t size() const { return m_size; }
-    inline const void *ptr() const { return m_ihdr; }
-    inline int32_t datasize() const { return m_datasize; }
-    inline const void *dataptr() const { return m_dataptr; }
+    inline int32_t size(void) const { return m_size; }
+    inline const void *ptr(void) const { return m_ihdr; }
+    inline int32_t datasize(void) const { return m_datasize; }
+    inline const void *dataptr(void) const { return m_dataptr; }
 
-    inline uint32_t srcip() const { return m_ihdr->saddr; }
-    inline uint32_t dstip() const { return m_ihdr->daddr; }
+    inline uint32_t srcip(void) const { return m_ihdr->saddr; }
+    inline uint32_t dstip(void) const { return m_ihdr->daddr; }
 
-    inline address src() const { return address(srcip()); }
-    inline address dst() const { return address(dstip()); }
+    inline address src(void) const { return address(srcip()); }
+    inline address dst(void) const { return address(dstip()); }
 
     bool apply(const void *data, int32_t size) {
       m_ihdr = static_cast<const struct iphdr*>(data);
