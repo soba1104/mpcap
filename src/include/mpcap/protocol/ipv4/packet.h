@@ -29,6 +29,16 @@ class ipv4::packet : public interface::packet {
     inline address src(void) const { return address(srcip()); }
     inline address dst(void) const { return address(dstip()); }
 
+    inline bool contain(const protocol::tcp &p, const void *data, int32_t size) {
+      const struct iphdr *ihdr
+        = static_cast<const struct iphdr*>(data);
+      return ihdr->protocol == IPPROTO_TCP;
+    }
+
+    inline virtual bool contain(const protocol::interface &p, const void *data, int32_t size) final override {
+      return false;
+    }
+
     inline virtual bool apply(const void *data, int32_t size) final override {
       m_ihdr = static_cast<const struct iphdr*>(data);
       m_size = size;
@@ -43,16 +53,6 @@ class ipv4::packet : public interface::packet {
     int32_t m_size;
     int32_t m_datasize;
 }; // class packet
-
-template<>
-inline bool ipv4::packet::apply<tcp>(const void *data, int32_t size) {
-  const struct iphdr *ihdr
-    = static_cast<const struct iphdr*>(data);
-  if (ihdr->protocol != IPPROTO_TCP) {
-    return false;
-  }
-  return apply(data, size);
-}
 
 } // namespace protocol
 

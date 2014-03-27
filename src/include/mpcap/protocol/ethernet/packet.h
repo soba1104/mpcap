@@ -40,6 +40,17 @@ class ethernet::packet : public interface::packet {
                    | static_cast<uint64_t>(m_ehdr->ether_dhost[5]) << 0x00UL);
     }
 
+    inline bool contain(const protocol::ipv4 &p, const void *data, int32_t size) {
+      const struct ether_header *ehdr
+        = static_cast<const struct ether_header*>(data);
+      uint16_t ether_type = ntohs(ehdr->ether_type);
+      return ether_type == ETH_P_IP;
+    }
+
+    inline virtual bool contain(const protocol::interface &p, const void *data, int32_t size) final override {
+      return false;
+    }
+
     inline virtual bool apply(const void *data, int32_t size) final override {
       m_ehdr = static_cast<const struct ether_header*>(data);
       m_size = size;
@@ -54,17 +65,6 @@ class ethernet::packet : public interface::packet {
     int32_t m_size;
     int32_t m_datasize;
 };
-
-template<>
-inline bool ethernet::packet::apply<ipv4>(const void *data, int32_t size) {
-  const struct ether_header *ehdr
-    = static_cast<const struct ether_header*>(data);
-  uint16_t ether_type = ntohs(ehdr->ether_type);
-  if (ether_type != ETH_P_IP) {
-    return false;
-  }
-  return apply(data, size);
-}
 
 } // namespace protocol
 

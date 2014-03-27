@@ -10,6 +10,7 @@ namespace protocol {
 struct interface {
   class packet {
     public:
+      virtual bool contain(const protocol::interface &p, const void *data, int32_t size) = 0;
       virtual bool apply(const void *data, int32_t size) = 0;
       virtual int32_t size(void) const = 0;
       virtual const void *ptr(void) const = 0;

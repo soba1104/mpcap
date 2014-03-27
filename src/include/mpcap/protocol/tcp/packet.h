@@ -41,6 +41,10 @@ class tcp::packet : public interface::packet {
     inline address src(void) const { return address(srcport()); }
     inline address dst(void) const { return address(dstport()); }
 
+    inline virtual bool contain(const protocol::interface &p, const void *data, int32_t size) final override {
+      return false;
+    }
+
     inline virtual bool apply(const void *data, int32_t size) final override {
       m_thdr = static_cast<const struct tcphdr*>(data);
       m_size = size;

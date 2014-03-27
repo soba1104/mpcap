@@ -2,12 +2,13 @@
 #define SRC_INCLUDE_MPCAP_PROTOCOL_TCP_H_
 
 #include <mpcap/common.h>
+#include <mpcap/protocol/interface.h>
 
 namespace mpcap {
 
 namespace protocol {
 
-struct tcp {
+struct tcp : public protocol::interface {
   class address;
   class packet;
   class reassembler;

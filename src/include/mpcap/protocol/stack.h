@@ -45,7 +45,12 @@ class stack<HEAD, NEXT, REST...> {
         address dst(void) const { return address(m_head.dst(), m_rest.dst()); }
 
         bool apply(const void *data, uint32_t size) {
-          if (!m_head.template apply<NEXT>(data, size)) { return false; }
+          if (!m_head.contain(NEXT(), data, size)) {
+            return false;
+          }
+          if (!m_head.apply(data, size)) {
+            return false;
+          }
           return m_rest.apply(m_head.dataptr(), m_head.datasize());
         }
 
