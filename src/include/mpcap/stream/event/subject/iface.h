@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_MPCAP_STREAM_EVENT_SUBJECT_INTERFACE_H_
-#define SRC_INCLUDE_MPCAP_STREAM_EVENT_SUBJECT_INTERFACE_H_
+#ifndef SRC_INCLUDE_MPCAP_STREAM_EVENT_SUBJECT_IFACE_H_
+#define SRC_INCLUDE_MPCAP_STREAM_EVENT_SUBJECT_IFACE_H_
 
 #include <mpcap/common.h>
 #include <mpcap/stream/event/observer.h>
@@ -13,10 +13,10 @@ namespace event {
 namespace subject {
 
 template <typename ADDRESS>
-class interface {
+class iface {
   public:
-    virtual ~interface(void) {}
-    virtual void attach(observer::interface *o) = 0;
+    virtual ~iface(void) {}
+    virtual void attach(observer::iface *o) = 0;
     virtual void detach(void) = 0;
     virtual void notify(const ADDRESS &src,
                         const ADDRESS &dst,
@@ -32,4 +32,4 @@ class interface {
 
 } // namespace mpcap
 
-#endif // SRC_INCLUDE_MPCAP_STREAM_EVENT_SUBJECT_INTERFACE_H_
+#endif // SRC_INCLUDE_MPCAP_STREAM_EVENT_SUBJECT_IFACE_H_

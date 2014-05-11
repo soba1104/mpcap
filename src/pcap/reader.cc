@@ -9,9 +9,9 @@ namespace pcap {
 
 class reader::impl {
   public:
-    impl(const std::string &interface,
+    impl(const std::string &iface,
          const std::string &filter)
-       : m_interface(interface),
+       : m_iface(iface),
          m_filter(filter),
          m_pcap(NULL) {}
     ~impl(void) { close(); }
@@ -21,7 +21,7 @@ class reader::impl {
     int32_t read(const void **res_data, struct ::timeval *res_time);
 
   private:
-    const std::string m_interface;
+    const std::string m_iface;
     const std::string m_filter;
     pcap_t *m_pcap;
 };
@@ -44,31 +44,31 @@ void reader::impl::open(void) {
     throw reader::exception(os.str());
   }
 
-  pcap_if_t *target_interface = NULL;
+  pcap_if_t *target_iface = NULL;
   for (pcap_if_t *device = devs; device; device = device->next) {
-    if (device->name == m_interface) {
-      target_interface = device;
+    if (device->name == m_iface) {
+      target_iface = device;
     }
   }
-  if (target_interface == NULL) {
+  if (target_iface == NULL) {
     std::ostringstream os;
-    os << "Failed to find device(" << m_interface << ").";
+    os << "Failed to find device(" << m_iface << ").";
     throw reader::exception(os.str());
   }
 
-  pcap_t *pcap = pcap_open_live(target_interface->name,
+  pcap_t *pcap = pcap_open_live(target_iface->name,
                                 65536, // capture whole packet
                                 true, // use promiscuous mode
                                 0, // FIXME timeout msec
                                 errbuf);
   if (!pcap) {
     std::ostringstream os;
-    os << "Failed open interface(" << target_interface->name << "). " << errbuf;
+    os << "Failed open iface(" << target_iface->name << "). " << errbuf;
     throw reader::exception(os.str());
   }
 
   bpf_u_int32 net, mask;
-  if (pcap_lookupnet(target_interface->name, &net, &mask, errbuf) == -1) {
+  if (pcap_lookupnet(target_iface->name, &net, &mask, errbuf) == -1) {
     std::ostringstream os;
     os << "Failed to lookup net. " << errbuf;
     pcap_close(pcap);
@@ -121,9 +121,9 @@ int32_t reader::impl::read(const void **res_data, struct ::timeval *res_time) {
   return hdr->len;
 }
 
-reader::reader(const std::string &interface,
+reader::reader(const std::string &iface,
                const std::string &filter)
-             : m_impl(new reader::impl(interface, filter)) {}
+             : m_impl(new reader::impl(iface, filter)) {}
 
 reader::~reader(void) {
   delete m_impl;

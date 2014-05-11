@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_MPCAP_PROTOCOL_INTERFACE_H_
-#define SRC_INCLUDE_MPCAP_PROTOCOL_INTERFACE_H_
+#ifndef SRC_INCLUDE_MPCAP_PROTOCOL_IFACE_H_
+#define SRC_INCLUDE_MPCAP_PROTOCOL_IFACE_H_
 
 #include <mpcap/common.h>
 
@@ -7,10 +7,10 @@ namespace mpcap {
 
 namespace protocol {
 
-struct interface {
+struct iface {
   class packet {
     public:
-      virtual bool contain(const protocol::interface &p, const void *data, int32_t size) = 0;
+      virtual bool contain(const protocol::iface &p, const void *data, int32_t size) = 0;
       virtual bool apply(const void *data, int32_t size) = 0;
       virtual int32_t size(void) const = 0;
       virtual const void *ptr(void) const = 0;
@@ -23,4 +23,4 @@ struct interface {
 
 } // namespace mpcap
 
-#endif // SRC_INCLUDE_MPCAP_PROTOCOL_INTERFACE_H_
+#endif // SRC_INCLUDE_MPCAP_PROTOCOL_IFACE_H_

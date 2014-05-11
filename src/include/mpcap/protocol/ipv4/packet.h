@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_MPCAP_PROTOCOL_IPV4_PACKET_H_
 
 #include <mpcap/common.h>
-#include <mpcap/protocol/interface.h>
+#include <mpcap/protocol/iface.h>
 #include <mpcap/protocol/ipv4.h>
 #include <mpcap/protocol/tcp.h>
 
@@ -12,7 +12,7 @@ namespace mpcap {
 
 namespace protocol {
 
-class ipv4::packet : public interface::packet {
+class ipv4::packet : public iface::packet {
   public:
     packet(void) {}
     ~packet(void) {}
@@ -35,7 +35,7 @@ class ipv4::packet : public interface::packet {
       return ihdr->protocol == IPPROTO_TCP;
     }
 
-    inline virtual bool contain(const protocol::interface &p, const void *data, int32_t size) final override {
+    inline virtual bool contain(const protocol::iface &p, const void *data, int32_t size) final override {
       return false;
     }
 

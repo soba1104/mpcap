@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_MPCAP_PROTOCOL_TCP_PACKET_H_
 
 #include <mpcap/common.h>
-#include <mpcap/protocol/interface.h>
+#include <mpcap/protocol/iface.h>
 #include <mpcap/protocol/tcp.h>
 #include <mpcap/protocol/tcp/address.h>
 
@@ -13,7 +13,7 @@ namespace mpcap {
 
 namespace protocol {
 
-class tcp::packet : public interface::packet {
+class tcp::packet : public iface::packet {
   public:
     packet(void) {}
     ~packet(void) {}
@@ -41,7 +41,7 @@ class tcp::packet : public interface::packet {
     inline address src(void) const { return address(srcport()); }
     inline address dst(void) const { return address(dstport()); }
 
-    inline virtual bool contain(const protocol::interface &p, const void *data, int32_t size) final override {
+    inline virtual bool contain(const protocol::iface &p, const void *data, int32_t size) final override {
       return false;
     }
 

@@ -2,13 +2,13 @@
 #define SRC_INCLUDE_MPCAP_PACKET_ETHERNET_H_
 
 #include <mpcap/common.h>
-#include <mpcap/protocol/interface.h>
+#include <mpcap/protocol/iface.h>
 
 namespace mpcap {
 
 namespace protocol {
 
-struct ethernet : public protocol::interface {
+struct ethernet : public protocol::iface {
 
 class address;
 class packet;

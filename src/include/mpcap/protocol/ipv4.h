@@ -2,13 +2,13 @@
 #define SRC_INCLUDE_MPCAP_PROTOCOL_IPV4_H_
 
 #include <mpcap/common.h>
-#include <mpcap/protocol/interface.h>
+#include <mpcap/protocol/iface.h>
 
 namespace mpcap {
 
 namespace protocol {
 
-struct ipv4 : public protocol::interface {
+struct ipv4 : public protocol::iface {
   class address;
   class packet;
 }; // struct ipv4

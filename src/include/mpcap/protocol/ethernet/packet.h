@@ -2,7 +2,7 @@
 #define SRC_INCLUDE_MPCAP_PROTOCOL_ETHERNET_PACKET_H_
 
 #include <mpcap/common.h>
-#include <mpcap/protocol/interface.h>
+#include <mpcap/protocol/iface.h>
 #include <mpcap/protocol/ethernet.h>
 #include <mpcap/protocol/ipv4.h>
 
@@ -12,7 +12,7 @@ namespace mpcap {
 
 namespace protocol {
 
-class ethernet::packet : public interface::packet {
+class ethernet::packet : public iface::packet {
   public:
     packet(void) {}
     ~packet(void) {}
@@ -47,7 +47,7 @@ class ethernet::packet : public interface::packet {
       return ether_type == ETH_P_IP;
     }
 
-    inline virtual bool contain(const protocol::interface &p, const void *data, int32_t size) final override {
+    inline virtual bool contain(const protocol::iface &p, const void *data, int32_t size) final override {
       return false;
     }
 

@@ -1,5 +1,5 @@
-#ifndef SRC_INCLUDE_MPCAP_STREAM_EVENT_OBSERVER_INTERFACE_H_
-#define SRC_INCLUDE_MPCAP_STREAM_EVENT_OBSERVER_INTERFACE_H_
+#ifndef SRC_INCLUDE_MPCAP_STREAM_EVENT_OBSERVER_IFACE_H_
+#define SRC_INCLUDE_MPCAP_STREAM_EVENT_OBSERVER_IFACE_H_
 
 #include <mpcap/common.h>
 
@@ -13,9 +13,9 @@ namespace event {
 
 namespace observer {
 
-class interface {
+class iface {
   public:
-    virtual ~interface(void) {}
+    virtual ~iface(void) {}
     virtual void notify(event::type type, const void *data, const struct ::timeval &time) = 0;
 };
 
@@ -27,4 +27,4 @@ class interface {
 
 } // namespace mpcap
 
-#endif // SRC_INCLUDE_MPCAP_STREAM_EVENT_OBSERVER_INTERFACE_H_
+#endif // SRC_INCLUDE_MPCAP_STREAM_EVENT_OBSERVER_IFACE_H_

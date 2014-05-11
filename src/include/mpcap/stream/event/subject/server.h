@@ -3,7 +3,7 @@
 
 #include <mpcap/common.h>
 #include <mpcap/stream/event/observer.h>
-#include <mpcap/stream/event/subject/interface.h>
+#include <mpcap/stream/event/subject/iface.h>
 
 namespace mpcap {
 
@@ -14,13 +14,13 @@ namespace event {
 namespace subject {
 
 template <typename ADDRESS>
-class server : public interface<ADDRESS> {
+class server : public iface<ADDRESS> {
   public:
     server(const ADDRESS &addr)
          : m_addr(addr), m_observer(NULL) {}
     ~server(void) {}
 
-    void attach(observer::interface *o) {
+    void attach(observer::iface *o) {
       m_observer = o;
     }
 
@@ -44,7 +44,7 @@ class server : public interface<ADDRESS> {
 
   private:
     const ADDRESS m_addr;
-    observer::interface *m_observer;
+    observer::iface *m_observer;
 };
 
 } // namespace subject
