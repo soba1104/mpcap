@@ -10,7 +10,7 @@ namespace {
 
 uint32_t parse(const char *str) {
   struct in_addr a;
-  inet_aton(str, &a);
+  inet_pton(AF_INET, str, &a);
   return a.s_addr;
 }
 
