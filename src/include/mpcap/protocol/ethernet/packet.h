@@ -6,18 +6,15 @@
 #include <mpcap/protocol/ethernet.h>
 #include <mpcap/protocol/ipv4.h>
 
-#ifdef WIN32
-#include <winsock.h>
-#else
-#include <netinet/if_ether.h>
-#endif
-
 namespace mpcap {
 
 namespace protocol {
 
 class ethernet::packet : public iface::packet {
   struct header {
+    enum types {
+      ipv4 = 0x800,
+    };
     uint8_t dst[6];
     uint8_t src[6];
     uint16_t type;
@@ -54,7 +51,7 @@ class ethernet::packet : public iface::packet {
       const struct header *header
         = static_cast<const struct header*>(data);
       uint16_t type = ntohs(header->type);
-      return type == ETH_P_IP;
+      return type == header::types::ipv4;
     }
 
     inline virtual bool contain(const protocol::iface &p, const void *data, int32_t size) final override {
