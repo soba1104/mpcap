@@ -6,18 +6,15 @@
 #include <mpcap/protocol/ipv4.h>
 #include <mpcap/protocol/tcp.h>
 
-#ifdef WIN32
-#include <winsock.h>
-#else
-#include <netinet/ip.h>
-#endif
-
 namespace mpcap {
 
 namespace protocol {
 
 class ipv4::packet : public iface::packet {
   struct header {
+    enum protocols {
+      tcp = 6,
+    };
     uint8_t vh; // version and headersize
     uint8_t tos;
     uint16_t size;
@@ -48,7 +45,7 @@ class ipv4::packet : public iface::packet {
     inline bool contain(const protocol::tcp &p, const void *data, int32_t size) {
       const struct header *hdr
         = static_cast<const struct header*>(data);
-      return hdr->protocol == IPPROTO_TCP;
+      return hdr->protocol == header::protocols::tcp;
     }
 
     inline virtual bool contain(const protocol::iface &p, const void *data, int32_t size) final override {
