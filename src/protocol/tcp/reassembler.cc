@@ -32,6 +32,9 @@ tcp::reassembler::impl::~impl(void) {
 }
 
 void tcp::reassembler::impl::put(const packet &p) {
+  if (!p.syn() && !p.datasize()) {
+    return;
+  }
   uint32_t seq = ntohl(p.seqnum());
   if (m_packets.find(seq) == m_packets.end()) {
     uint8_t *buf = (new uint8_t[p.size()]);
