@@ -61,7 +61,7 @@ class tcp::packet : public iface::packet {
       m_header = static_cast<const struct header*>(data);
       m_size = size;
       const uint8_t *__data = static_cast<const uint8_t*>(data);
-      uint16_t hdrsize = offset() * sizeof(uint32_t);
+      int32_t hdrsize = offset() * sizeof(uint32_t);
       m_dataptr = static_cast<const void*>(__data + hdrsize);
       m_datasize = m_size - hdrsize;
       return m_datasize >= 0;
