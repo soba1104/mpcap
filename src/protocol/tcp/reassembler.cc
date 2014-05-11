@@ -2,7 +2,6 @@
 
 #include <map>
 #include <string.h>
-#include <arpa/inet.h>
 
 namespace mpcap {
 

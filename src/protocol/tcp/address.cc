@@ -1,7 +1,5 @@
 #include <mpcap/protocol/tcp.h>
 
-#include <arpa/inet.h>
-
 namespace mpcap {
 
 namespace protocol {

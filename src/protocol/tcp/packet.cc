@@ -1,7 +1,6 @@
 #include <mpcap/protocol/tcp/packet.h>
 
 #include <sstream>
-#include <arpa/inet.h>
 
 namespace mpcap {
 

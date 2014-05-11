@@ -11,6 +11,12 @@
 #define MPCAP_ASSERT(expr)
 #endif
 
+#ifdef WIN32
+#include <WinSock2.h>
+#else
+#include <arpa/inet.h>
+#endif
+
 #define DISALLOW_COPY(T) \
   T(const T&);
 
