@@ -1,6 +1,13 @@
 /tmp
+/x64
 *.swp
 *.swo
+*.vcxproj
+*.vcxproj.filters
+*.opensdf
+*.sdf
+*.sln
+*.suo
 CMakeCache.txt
 CMakeFiles
 Makefile

@@ -3,7 +3,6 @@
 
 #include <string>
 #include <stdexcept>
-#include <sys/time.h>
 
 #include <mpcap/common.h>
 

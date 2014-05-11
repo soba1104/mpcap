@@ -40,12 +40,12 @@ class tcp::packet : public iface::packet {
     inline uint32_t seqnum(void) const { return m_header->seqnum; }
     inline uint32_t acknum(void) const { return m_header->acknum; }
     inline uint8_t offset(void) const { return (m_header->offset & 0xf0) >> 4; }
-    inline bool fin(void) const { return (m_header->flags & 0x01 != 0); }
-    inline bool syn(void) const { return (m_header->flags & 0x02 != 0); }
-    inline bool rst(void) const { return (m_header->flags & 0x04 != 0); }
-    inline bool psh(void) const { return (m_header->flags & 0x08 != 0); }
-    inline bool ack(void) const { return (m_header->flags & 0x10 != 0); }
-    inline bool urg(void) const { return (m_header->flags & 0x20 != 0); }
+    inline bool fin(void) const { return ((m_header->flags & 0x01) != 0); }
+    inline bool syn(void) const { return ((m_header->flags & 0x02) != 0); }
+    inline bool rst(void) const { return ((m_header->flags & 0x04) != 0); }
+    inline bool psh(void) const { return ((m_header->flags & 0x08) != 0); }
+    inline bool ack(void) const { return ((m_header->flags & 0x10) != 0); }
+    inline bool urg(void) const { return ((m_header->flags & 0x20) != 0); }
     inline uint16_t window(void) const { return m_header->window; }
     inline uint16_t checksum(void) const { return m_header->checksum; }
     inline uint16_t urgptr(void) const { return m_header->urgptr; }

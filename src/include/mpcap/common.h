@@ -15,6 +15,7 @@
 #include <WinSock2.h>
 #else
 #include <arpa/inet.h>
+#include <sys/time.h>
 #endif
 
 #define DISALLOW_COPY(T) \

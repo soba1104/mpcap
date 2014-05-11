@@ -1,5 +1,10 @@
 #include <mpcap/protocol/ipv4.h>
 
+#ifdef WIN32
+#include <Ws2tcpip.h>
+#define inet_pton InetPton
+#endif
+
 namespace mpcap {
 
 namespace protocol {
