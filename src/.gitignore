@@ -1,3 +1,4 @@
 /libmpcap.*
 /Debug
+/Release
 /*.dir
