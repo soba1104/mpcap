@@ -13,9 +13,11 @@
 
 #ifdef WIN32
 #include <WinSock2.h>
+#define MPCAP_EXPORT __declspec(dllexport)
 #else
 #include <arpa/inet.h>
 #include <sys/time.h>
+#define MPCAP_EXPORT
 #endif
 
 #define DISALLOW_COPY(T) \

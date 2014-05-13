@@ -10,7 +10,7 @@ namespace mpcap {
 
 namespace pcap {
 
-class reader {
+class MPCAP_EXPORT reader {
   public:
     class exception;
 
