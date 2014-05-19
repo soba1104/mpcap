@@ -14,7 +14,7 @@ class MPCAP_EXPORT reader {
   public:
     class exception;
 
-    reader(const std::string &iface, const std::string &filter);
+    reader(const std::wstring &iface, const std::string &filter);
     ~reader(void);
     void open(void);
     void close(void);
