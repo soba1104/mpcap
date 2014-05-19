@@ -32,6 +32,18 @@ class reader::impl {
     pcap_t *m_pcap;
 };
 
+namespace {
+
+const std::wstring string_to_wstring(const std::string &str) {
+  int len = str.length();
+  wchar_t wname[len + 1];
+  mbstowcs(wname, str.c_str(), len);
+  wname[len] = 0;
+  return std::wstring(wname);
+}
+
+};
+
 const std::wstring reader::impl::get_friendly_device_name(const char *name) {
 #ifdef WIN32
   IP_ADAPTER_ADDRESSES addresses[64]; // FIXME
@@ -63,7 +75,7 @@ const std::wstring reader::impl::get_friendly_device_name(const char *name) {
   }
   return std::wstring(friendly_name);
 #else
-  return name;
+  return string_to_wstring(name);
 #endif
 }
 
@@ -159,6 +171,10 @@ int32_t reader::impl::read(const void **res_data, struct ::timeval *res_time) {
 
   return hdr->len;
 }
+
+reader::reader(const std::string &iface,
+               const std::string &filter)
+             : m_impl(new reader::impl(string_to_wstring(iface), filter)) {}
 
 reader::reader(const std::wstring &iface,
                const std::string &filter)
