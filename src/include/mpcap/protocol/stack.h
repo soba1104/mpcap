@@ -54,6 +54,10 @@ class stack<HEAD, NEXT, REST...> {
           return m_rest.apply(m_head.dataptr(), m_head.datasize());
         }
 
+        const typename stack<NEXT, REST...>::packet &payload(void) {
+          return m_rest;
+        }
+
       private:
         DISALLOW_COPY_AND_ASSIGN(packet);
 
