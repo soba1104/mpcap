@@ -58,6 +58,16 @@ class list<CAR, CDR> {
       return m_car;
     }
 
+    template <int I>
+    const auto &slice(typename std::enable_if<I != 0>::type* = 0) const {
+      return m_cdr.slice<I-1>();
+    }
+
+    template <int I>
+    const typename meta::list<CAR, CDR> &slice(typename std::enable_if<I == 0>::type* = 0) const {
+      return *this;
+    }
+
     size_t hash(void) const {
       return m_car.hash() ^ m_cdr.hash();
     }
@@ -85,6 +95,14 @@ class list<> {
     };
 
     template <int I> void at(void) const {}
+
+    template <int I>
+    void slice(typename std::enable_if<I != 0>::type* = 0) const {}
+
+    template <int I>
+    const typename meta::list<> &slice(typename std::enable_if<I == 0>::type* = 0) const {
+      return *this;
+    }
 
     bool operator==(const list<> &rhs) const {
       return true;
