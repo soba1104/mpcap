@@ -14,6 +14,7 @@ class tcp::reassembler {
     reassembler(void);
     ~reassembler(void);
 
+    bool pass(const packet &tp);
     void put(const packet &tp);
     const packet *take(void);
 

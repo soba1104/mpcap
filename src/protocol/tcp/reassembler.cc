@@ -12,6 +12,7 @@ class tcp::reassembler::impl {
     impl(void) : m_init(false), m_taken(NULL) {}
     ~impl(void);
 
+    bool pass(const packet &p);
     void put(const packet &p);
     const packet *take(void);
 
@@ -27,6 +28,21 @@ tcp::reassembler::impl::~impl(void) {
     packet *p = (*it).second;
     delete[] static_cast<const uint8_t*>(p->ptr());
     delete p;
+  }
+}
+
+bool tcp::reassembler::impl::pass(const packet &p) {
+  uint32_t seq = ntohl(p.seqnum());
+  if (!m_init) {
+    m_seq = seq;
+    m_init = true;
+  }
+  if (m_seq == seq) {
+    if (p.syn()) { ++m_seq; }
+    m_seq += p.datasize();
+    return true;
+  } else {
+    return false;
   }
 }
 
@@ -76,6 +92,10 @@ tcp::reassembler::reassembler(void)
 
 tcp::reassembler::~reassembler(void) {
   delete m_impl;
+}
+
+bool tcp::reassembler::pass(const tcp::packet &p) {
+  return m_impl->pass(p);
 }
 
 void tcp::reassembler::put(const tcp::packet &p) {
