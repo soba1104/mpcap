@@ -41,6 +41,16 @@ class stack<HEAD, NEXT, REST...> {
           return m_head;
         }
 
+        template <int I>
+        const auto &slice(typename std::enable_if<I != 0>::type* = 0) const {
+          return m_rest.slice<I-1>();
+        }
+
+        template <int I>
+        const typename stack<HEAD, NEXT, REST...>::packet &slice(typename std::enable_if<I == 0>::type* = 0) const {
+          return *this;
+        }
+
         address src(void) const { return address(m_head.src(), m_rest.src()); }
         address dst(void) const { return address(m_head.dst(), m_rest.dst()); }
 
@@ -52,10 +62,6 @@ class stack<HEAD, NEXT, REST...> {
             return false;
           }
           return m_rest.apply(m_head.dataptr(), m_head.datasize());
-        }
-
-        const typename stack<NEXT, REST...>::packet &payload(void) {
-          return m_rest;
         }
 
       private:
@@ -91,6 +97,14 @@ class stack<HEAD> {
         template <int I>
         const typename HEAD::packet &at(typename std::enable_if<I == 0>::type* = 0) const {
           return m_head;
+        }
+
+        template <int I>
+        void slice(typename std::enable_if<I != 0>::type* = 0) const {}
+
+        template <int I>
+        const typename stack<HEAD>::packet &slice(typename std::enable_if<I == 0>::type* = 0) const {
+          return *this;
         }
 
         address src(void) const { return address(m_head.src(), meta::list<>()); }
