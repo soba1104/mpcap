@@ -68,6 +68,8 @@ class list<CAR, CDR> {
       return *this;
     }
 
+    static constexpr int size(void) { return 1 + CDR::size(); }
+
     size_t hash(void) const {
       return m_car.hash() ^ m_cdr.hash();
     }
@@ -103,6 +105,8 @@ class list<> {
     const typename meta::list<> &slice(typename std::enable_if<I == 0>::type* = 0) const {
       return *this;
     }
+
+    static constexpr int size(void) { return 0; }
 
     bool operator==(const list<> &rhs) const {
       return true;
