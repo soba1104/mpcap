@@ -71,6 +71,8 @@ class stack<HEAD, NEXT, REST...> {
         typename stack<NEXT, REST...>::packet m_rest;
     };
 
+    static constexpr int size(void) { return 1 + stack<NEXT, REST...>::size(); }
+
   private:
     stack<HEAD, NEXT, REST...>() {}
     ~stack<HEAD, NEXT, REST...>() {}
@@ -119,6 +121,8 @@ class stack<HEAD> {
 
         typename HEAD::packet m_head;
     };
+
+    static constexpr int size(void) { return 1; }
 
   private:
     stack<HEAD>() {}
