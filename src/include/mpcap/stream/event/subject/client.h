@@ -20,7 +20,7 @@ class client : public iface<ADDRESS> {
          : m_caddr(caddr), m_saddr(saddr), m_observer(NULL) {}
     ~client(void) {}
 
-    void attach(observer::iface *o) {
+    void attach(observer::iface<ADDRESS> *o) {
       m_observer = o;
     }
 
@@ -36,15 +36,15 @@ class client : public iface<ADDRESS> {
         return;
       }
       if (src == m_caddr && dst == m_saddr) {
-        m_observer->notify(event::type::send, data, time);
+        m_observer->notify(event::type::send, src, dst, data, time);
       } else if (dst == m_caddr && src == m_saddr) {
-        m_observer->notify(event::type::recv, data, time);
+        m_observer->notify(event::type::recv, src, dst, data, time);
       }
     }
 
   private:
     const ADDRESS m_caddr, m_saddr;
-    observer::iface *m_observer;
+    observer::iface<ADDRESS> *m_observer;
 };
 
 } // namespace subject

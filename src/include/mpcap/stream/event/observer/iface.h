@@ -13,10 +13,15 @@ namespace event {
 
 namespace observer {
 
+template <typename ADDRESS>
 class iface {
   public:
     virtual ~iface(void) {}
-    virtual void notify(event::type type, const void *data, const struct ::timeval &time) = 0;
+    virtual void notify(event::type type,
+                        const ADDRESS &src,
+                        const ADDRESS &dst,
+                        const void *data,
+                        const struct ::timeval &time) = 0;
 };
 
 } // namespace observer

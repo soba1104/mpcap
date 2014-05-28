@@ -16,7 +16,7 @@ template <typename ADDRESS>
 class iface {
   public:
     virtual ~iface(void) {}
-    virtual void attach(observer::iface *o) = 0;
+    virtual void attach(observer::iface<ADDRESS> *o) = 0;
     virtual void detach(void) = 0;
     virtual void notify(const ADDRESS &src,
                         const ADDRESS &dst,
