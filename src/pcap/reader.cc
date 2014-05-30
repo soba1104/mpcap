@@ -35,8 +35,8 @@ class reader::impl {
 namespace {
 
 const std::wstring string_to_wstring(const std::string &str) {
-  int len = str.length();
-  wchar_t wname[len + 1];
+  size_t len = str.length();
+  wchar_t *wname = static_cast<wchar_t*>(alloca(sizeof(wchar_t)* (len + 1)));
   mbstowcs(wname, str.c_str(), len);
   wname[len] = 0;
   return std::wstring(wname);
